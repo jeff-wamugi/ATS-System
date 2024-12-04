@@ -62,6 +62,13 @@ input_prompt1 = """
  Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
 """
 
+input_prompt2 = """
+You are a career development advisor with expertise in identifying skills gaps. 
+Your task is to analyze the provided resume against the job description and suggest specific skills, certifications, 
+or experiences the candidate can acquire to enhance their suitability for the role. Focus on actionable recommendations 
+and clearly state the areas for improvement based on the job requirements.
+"""
+
 input_prompt3 = """
 You are an skilled ATS (Applicant Tracking System) scanner with a deep understanding of data science and ATS functionality, 
 your task is to evaluate the resume against the provided job description. give me the percentage of match if the resume matches
@@ -76,6 +83,15 @@ if submit1:
         st.write(response)
     else:
         st.write("Please uplaod the resume")
+
+if submit2:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt2, pdf_content, input_text)
+        st.subheader("Suggestions for Improvement")
+        st.write(response)
+    else:
+        st.write("Please upload the resume")
 
 elif submit3:
     if uploaded_file is not None:
